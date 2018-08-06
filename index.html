@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Flipping background</title><meta name="description" content="Eric Perret&#39;s online portfolio detailing information about my work with websites and photography."/><meta name="keywords" content="Eric, Perret, Eric Perret, Eric, Eric Perret&#39;s.Info, Resume, Web, HTML, User Interface, UI, JavaScript, JS, Java, Developer, Usability, Performance, XHTML, DHTML, CSS, DOJO, ExtJS, AJAX, JAVA Swing, JSP, JSTL, Spring Core, MVC, Tiles, SQL, XML, VB.NET, ASP.NET, SFTP, FTP, WebSphere, PC, Mac, UNIX, IBM Mainframe, photo, photography"/><meta name="application-name" content="Flipping background"/>
+
+    <link href=".css" rel="stylesheet" type="text/css" media="screen" />
+    </head>
+    <body>
+    <div class="grid background bg0 bg1" role="presentation"></div>
+    <script>{
+        function setBackground(options) {
+            let background = document.querySelector(".background"),
+                titleText = document.querySelector(".clip-text"),
+                backgroundContent = "",
+                imgClass = "bg" + Math.floor(Math.random() * 5);
+            for(let i = 0; i < options.num; i++) {
+                backgroundContent += "<div><div></div></div>";
+            }
+            background.innerHTML = backgroundContent;
+            background.classList.add(options.className, imgClass);
+            titleText.classList.add(imgClass);
+        }
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+        function setFlipBackground(options) {
+            function getAndFlipDiv() {
+                console.log(divs.length);
+                let index = getRandomInt(divs.length);
+                divs[index].classList.toggle("hover");
+                divs.splice(index, 1);
+            }
+            let backgroundContent = "",
+                background = document.querySelector(".background");
+            for(let i = 0; i < options.num; i++) {
+                backgroundContent += '<div class="flip-container"><div class="flipper"><div class="front"></div><div class="back"></div></div></div>';
+            }
+            background.innerHTML = backgroundContent;
+            background.classList.add(options.className);
+            let divs = Array.from(background.querySelectorAll(".background > div"));
+            let i = 0;
+            divs.forEach(el => {
+                el.addEventListener("transitionend", function transitionendHandler(event) {
+                    if (divs.length) {
+                        getAndFlipDiv();
+                    } else {
+                        debugger;
+                        if (i > 5) {
+                            i = 1;
+                        }
+                        background.classList.replace("bg" + i, "bg" + (((i + 2) > 5) ? 1 : (i + 2)));
+                        i++;
+                        divs = Array.from(background.querySelectorAll(".background > div"));
+                        getAndFlipDiv();
+                    }
+                }, false);
+            });
+            setTimeout(function getAndFlipDivWrapper() {
+                getAndFlipDiv();
+            }, 1);
+        }
+        setFlipBackground({num: 49, className: "option2"});
+        window.ga=function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga("create","UA-39357422-1","auto");
+        ga("send","pageview");
+    }</script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    </body>
+    </html>
