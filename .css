@@ -126,6 +126,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    border-radius: .75rem;
 }
 
 /* front pane, placed above back */
