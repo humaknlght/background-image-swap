@@ -114,14 +114,6 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-}
-
-.bg0 .front,
-.bg1 .back,
-.bg2 .front,
-.bg3 .back,
-.bg4 .front,
-.bg5 .back {
 	z-index: 2;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -129,36 +121,11 @@ body {
     border-radius: .75rem;
 }
 
-/* front pane, placed above back */
-.bg0 .front,
-.bg2 .front,
-.bg4 .front {
-	/* for firefox 31 */
+.front {
+    background-image: var(--bgFrontUrl);
     transform: rotateY(0deg);
 }
-
-/* back, initially hidden pane */
-.bg1 .back,
-.bg3 .back,
-.bg5 .back {
+.back {
+    background-image: var(--bgBackUrl);
     transform: rotateY(180deg);
-}
-
-.bg0 .front {
-    background-image: url(https://www.ericperrets.info/img/bg0.jpg);
-}
-.bg1 .back {
-    background-image: url(https://www.ericperrets.info/img/bg1.jpg);
-}
-.bg2 .front {
-    background-image: url(https://www.ericperrets.info/img/bg2.jpg);
-}
-.bg3 .back {
-    background-image: url(https://www.ericperrets.info/img/bg3.jpg);
-}
-.bg4 .front {
-    background-image: url(https://www.ericperrets.info/img/bg4.jpg);
-}
-.bg5 .back {
-    background-image: url(https://www.ericperrets.info/img/bg5.jpg);
 }

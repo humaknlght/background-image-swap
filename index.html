@@ -4,12 +4,12 @@
     <link rel="preload" href="https://www.ericperrets.info/img/bg0.jpg" as="image">
     </head>
     <body>
-    <div class="grid background bg0 bg1" role="presentation"></div>
+    <div class="grid background" role="presentation"></div>
     <script>{
-        function getRandomInt(max) {
-            return Math.floor(Math.random() * Math.floor(max));
-        }
         function setFlipBackground(options) {
+            function getRandomInt(max) {
+                return Math.floor(Math.random() * Math.floor(max));
+            }
             function getAndFlipDiv() {
                 console.log(divs.length);
                 let index = getRandomInt(divs.length);
@@ -23,8 +23,11 @@
             }
             background.innerHTML = backgroundContent;
             background.classList.add(options.className);
-            let divs = Array.from(background.querySelectorAll(".background > div"));
-            let i = 0;
+            background.style.setProperty("--bgFrontUrl", `url(https://www.ericperrets.info/img/bg0.jpg)`);
+            background.style.setProperty("--bgBackUrl", `url(https://www.ericperrets.info/img/bg1.jpg)`);
+            let divs = Array.from(background.querySelectorAll(".background > div")),
+                i = 2,
+                swap = 0;
             divs.forEach(el => {
                 el.addEventListener("transitionend", function transitionendHandler(event) {
                     if (divs.length) {
@@ -32,8 +35,9 @@
                     } else {
                         if (i > 4) {
                             i = 0;
+                            swap = 1 - swap;
                         }
-                        background.classList.replace("bg" + i, "bg" + (((i + 2) > 4) ? (i - 4) : (i + 2)));
+                        background.style.setProperty((i % 2) === swap ? "--bgFrontUrl" : "--bgBackUrl", `url(https://www.ericperrets.info/img/bg${i}.jpg)`);
                         i++;
                         divs = Array.from(background.querySelectorAll(".background > div"));
                         getAndFlipDiv();
@@ -45,10 +49,12 @@
             }, 1);
         }
         setFlipBackground({num: 49, className: "option2"});
-        window.ga=function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-        ga("create","UA-39357422-1","auto");
-        ga("send","pageview");
     }</script>
+    <script>
+    window.ga=function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga("create","UA-39357422-1","auto");
+    ga("send","pageview");
+    </script>
     <script async src="https://www.google-analytics.com/analytics.js"></script>
     </body>
     </html>
